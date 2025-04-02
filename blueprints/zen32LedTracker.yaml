@@ -18,8 +18,6 @@ blueprint:
       description: The light to link to button
       selector:
         entity:
-          filter:
-            domain: light
           multiple: false
     scene_button:
       name: Scene Button
