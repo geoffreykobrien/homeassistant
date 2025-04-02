@@ -1,0 +1,224 @@
+blueprint:
+  name: Set Indicator Light on Scene Controller with State Overwrite
+  description: For Zooz ZEN32. Sets the indicator color when light is off or dimmed.
+  domain: automation
+  input:
+    zooz_switch:
+      name: Zooz Switch
+      description: List of available Zooz ZEN32 switches.
+      selector:
+        device:
+          filter:
+            integration: zwave_js
+            manufacturer: Zooz
+            model: ZEN32
+          multiple: false
+    target_light:
+      name: Light
+      description: The light to link to button
+      selector:
+        entity:
+          filter:
+            domain: light
+          multiple: false
+    scene_button:
+      name: Scene Button
+      description: The button to link to light
+      selector:
+        select:
+          options:
+          - label: Scene 5 (Big Button)
+            value: '0'
+          - label: Scene 1 (Top Left)
+            value: '1'
+          - label: Scene 2 (Top Right)
+            value: '2'
+          - label: Scene 3 (Bottom Left)
+            value: '3'
+          - label: Scene 4 (Bottom Right)
+            value: '4'
+          multiple: false
+          custom_value: false
+    off_state:
+      name: Off State
+      description: Led state when light is off
+      default: Led On
+      selector:
+        select:
+          options:
+          - label: Led On
+            value: '3'
+          - label: Led Off
+            value: '2'
+          multiple: false
+          custom_value: false
+    off_color:
+      name: Off Led Color
+      description: Color for led when light is off (default white)
+      default: White
+      selector:
+        select:
+          mode: dropdown
+          options:
+          - label: White
+            value: '0'
+          - label: Blue
+            value: '1'
+          - label: Green
+            value: '2'
+          - label: Red
+            value: '3'
+          - label: Magenta
+            value: '4'
+          - label: Yellow
+            value: '5'
+          - label: Cyan
+            value: '6'
+          multiple: false
+          custom_value: false
+    on_state:
+      name: On State
+      description: Led state when light is not dimmed
+      default: Led On
+      selector:
+        select:
+          mode: dropdown
+          options:
+          - label: Led On
+            value: '3'
+          - label: Led Off
+            value: '2'
+          multiple: false
+          custom_value: false
+    on_color:
+      name: Not Dimmed Led Color
+      description: Color for led when not dimmed (default white)
+      default: White
+      selector:
+        select:
+          mode: dropdown
+          options:
+          - label: White
+            value: '0'
+          - label: Blue
+            value: '1'
+          - label: Green
+            value: '2'
+          - label: Red
+            value: '3'
+          - label: Magenta
+            value: '4'
+          - label: Yellow
+            value: '5'
+          - label: Cyan
+            value: '6'
+          multiple: false
+          custom_value: false
+    dim_state:
+      name: Dim State
+      description: Led state when light is dimmed
+      default: Led On
+      selector:
+        select:
+          mode: dropdown
+          options:
+          - label: Led On
+            value: '3'
+          - label: Led Off
+            value: '2'
+          multiple: false
+          custom_value: false
+    dimmed_color:
+      name: Dimmed Color
+      description: Color to make indicator when light is dimmed (default blue)
+      default: Blue
+      selector:
+        select:
+          mode: dropdown
+          options:
+          - label: White
+            value: '0'
+          - label: Blue
+            value: '1'
+          - label: Green
+            value: '2'
+          - label: Red
+            value: '3'
+          - label: Magenta
+            value: '4'
+          - label: Yellow
+            value: '5'
+          - label: Cyan
+            value: '6'
+          multiple: false
+          custom_value: false
+mode: restart
+max_exceeded: silent
+variables:
+  controller_id: !input 'zooz_switch'
+  light_id: !input 'target_light'
+  button_id: !input 'scene_button'
+  toggle_offset: 1
+  color_offset: 6
+  on_state: !input 'on_state'
+  off_state: !input 'off_state'
+  dim_state: !input 'dim_state'
+  off_color: !input 'off_color'
+  on_color: !input 'on_color'
+  dimmed_color: !input 'dimmed_color'
+  full_brightness: 255
+triggers:
+- trigger: state
+  entity_id: !input 'target_light'
+  attribute: brightness
+  for:
+    hours: 0
+    minutes: 0
+    seconds: 5
+- trigger: state
+  entity_id: !input 'target_light'
+actions:
+- delay: "00:00:01"
+  alias: Prevent flooding on dimming
+- choose:
+  - conditions: '{{ is_state(light_id, ''off'') }}'
+    sequence:
+    - parallel:
+      - action: zwave_js.set_config_parameter
+        data:
+          parameter: '{{ (button_id | int) + (color_offset | int) }}'
+          value: '{{ off_color }}'
+          device_id: '{{ controller_id }}'
+      - action: zwave_js.set_config_parameter
+        data:
+          parameter: '{{ (button_id | int) + (toggle_offset | int) }}'
+          value: '{{ off_state }}'
+          device_id: '{{ controller_id }}'
+  - conditions: '{{ is_state(light_id, ''on'') and not is_state_attr(light_id, ''brightness'',
+      full_brightness) }}'
+    sequence:
+    - parallel:
+      - action: zwave_js.set_config_parameter
+        data:
+          parameter: '{{ (button_id | int) + (color_offset | int) }}'
+          value: '{{ dimmed_color }}'
+          device_id: '{{ controller_id }}'
+      - action: zwave_js.set_config_parameter
+        data:
+          parameter: '{{ (button_id | int) + (toggle_offset | int) }}'
+          value: '{{ dim_state }}'
+          device_id: '{{ controller_id }}'
+  - conditions: '{{ is_state(light_id, ''on'') and is_state_attr(light_id, ''brightness'',
+      full_brightness) }}'
+    sequence:
+    - parallel:
+      - action: zwave_js.set_config_parameter
+        data:
+          parameter: '{{ (button_id | int) + (color_offset | int) }}'
+          value: '{{ on_color }}'
+          device_id: '{{ controller_id }}'
+      - action: zwave_js.set_config_parameter
+        data:
+          parameter: '{{ (button_id | int) + (toggle_offset | int) }}'
+          value: '{{ on_state }}'
+          device_id: '{{ controller_id }}'
