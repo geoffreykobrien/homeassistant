@@ -29,7 +29,7 @@ blueprint:
         The state of this switch is reflected in the scene button LED selected below."
       selector:
         entity:
-          domain: binary sensor
+          domain: input_boolean
           multiple: false
     scene_controller:
       name: Scene Controller
