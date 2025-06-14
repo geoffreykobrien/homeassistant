@@ -6,88 +6,88 @@ configure_zooz_zen77:
       description: "Entity ID of the ZEN77 dimmer"
       example: "light.bedroom_dimmer"
     paddle_orientation:
-      description: "Paddle orientation: 0=Up on/Down off, 1=Up off/Down on, 2=Up or down for on/off"
+      description: "Paddle orientation: 0=Up on/Down off, 1=Up off/Down on, 2=Up or down for on/off (Default: 0)"
       example: "0"
     led_indicator:
-      description: "LED indicator mode: 0=LED on when switch off, 1=LED on when switch on, 2=LED always off, 3=LED always on"
+      description: "LED indicator mode: 0=LED on when switch off, 1=LED on when switch on, 2=LED always off, 3=LED always on (Default: 0)"
       example: "0"
     auto_turn_off_timer:
-      description: "Auto turn-off timer in minutes (0=disabled, 1-65535)"
+      description: "Auto turn-off timer in minutes (0=disabled, 1-65535) (Default: 0)"
       example: "0"
     auto_turn_on_timer:
-      description: "Auto turn-on timer in minutes (0=disabled, 1-65535)"
+      description: "Auto turn-on timer in minutes (0=disabled, 1-65535) (Default: 0)"
       example: "0"
     association_reports:
-      description: "Association reports trigger (0-15, see manual for details)"
+      description: "Association reports trigger (0-15, see manual for details) (Default: 15)"
       example: "15"
     power_failure_status:
-      description: "Status after power failure: 0=always off, 1=always on, 2=restore last"
+      description: "Status after power failure: 0=always off, 1=always on, 2=restore last (Default: 2)"
       example: "2"
     physical_ramp_rate_on:
-      description: "Physical ramp rate ON in seconds (0=instant, 1-99)"
+      description: "Physical ramp rate ON in seconds (0=instant, 1-99) (Default: 0)"
       example: "0"
     minimum_brightness:
-      description: "Minimum brightness level in percent (1-99)"
+      description: "Minimum brightness level in percent (1-99) (Default: 1)"
       example: "1"
     maximum_brightness:
-      description: "Maximum brightness level in percent (1-99)"
+      description: "Maximum brightness level in percent (1-99) (Default: 99)"
       example: "99"
     double_tap_up:
-      description: "Double tap up behavior: 0=full brightness, 1=custom brightness, 2=max brightness, 3=disabled"
+      description: "Double tap up behavior: 0=full brightness, 1=custom brightness, 2=max brightness, 3=disabled (Default: 0)"
       example: "0"
     scene_control:
-      description: "Scene control: 0=disabled, 1=enabled"
+      description: "Scene control: 0=disabled, 1=enabled (Default: 0)"
       example: "0"
     load_control:
-      description: "Load control (smart bulb mode): 0=disable paddle, 1=enable paddle and Z-Wave, 2=disable paddle and Z-Wave"
+      description: "Load control (smart bulb mode): 0=disable paddle, 1=enable paddle and Z-Wave, 2=disable paddle and Z-Wave (Default: 1)"
       example: "1"
     dimming_speed:
-      description: "Dimming speed when holding paddle in seconds (1-99)"
+      description: "Dimming speed when holding paddle in seconds (1-99) (Default: 5)"
       example: "5"
     physical_custom_brightness:
-      description: "Physical custom brightness level (0=last level, 1-99%)"
+      description: "Physical custom brightness level (0=last level, 1-99%) (Default: 0)"
       example: "0"
     multilevel_dimming_reports:
-      description: "Multilevel dimming reports behavior (0-2)"
+      description: "Multilevel dimming reports behavior (0-2) (Default: 2)"
       example: "2"
     disabled_load_behavior:
-      description: "Disabled load behavior: 0=reports status/changes LED, 1=doesn't report"
+      description: "Disabled load behavior: 0=reports status/changes LED, 1=doesn't report (Default: 0)"
       example: "0"
     night_light:
-      description: "Night light brightness level (0=disabled, 1-99%)"
+      description: "Night light brightness level (0=disabled, 1-99%) (Default: 20)"
       example: "20"
     led_indicator_color:
-      description: "LED indicator color: 0=white, 1=blue, 2=green, 3=red"
+      description: "LED indicator color: 0=white, 1=blue, 2=green, 3=red (Default: 1)"
       example: "1"
     led_indicator_brightness:
-      description: "LED indicator brightness: 0=bright(100%), 1=medium(60%), 2=low(30%)"
+      description: "LED indicator brightness: 0=bright(100%), 1=medium(60%), 2=low(30%) (Default: 1)"
       example: "1"
     single_tap_up:
-      description: "Single tap up behavior: 0=last brightness, 1=custom brightness, 2=max brightness, 3=full brightness"
+      description: "Single tap up behavior: 0=last brightness, 1=custom brightness, 2=max brightness, 3=full brightness (Default: 0)"
       example: "0"
     disable_paddle_programming:
-      description: "Disable paddle programming: 0=programming enabled, 1=programming disabled"
+      description: "Disable paddle programming: 0=programming enabled, 1=programming disabled (Default: 0)"
       example: "0"
     physical_ramp_rate_off:
-      description: "Physical ramp rate OFF in seconds (0=instant, 1-99)"
+      description: "Physical ramp rate OFF in seconds (0=instant, 1-99) (Default: 2)"
       example: "2"
     zwave_ramp_rate_on:
-      description: "Z-Wave ramp rate ON in seconds (0=instant, 1-99, 255=match physical)"
+      description: "Z-Wave ramp rate ON in seconds (0=instant, 1-99, 255=match physical) (Default: 255)"
       example: "255"
     zwave_ramp_rate_off:
-      description: "Z-Wave ramp rate OFF in seconds (0=instant, 1-99, 255=match physical)"
+      description: "Z-Wave ramp rate OFF in seconds (0=instant, 1-99, 255=match physical) (Default: 255)"
       example: "255"
     remote_zwave_dimming_duration:
-      description: "Remote Z-Wave dimming duration in seconds (1-99)"
+      description: "Remote Z-Wave dimming duration in seconds (1-99) (Default: 5)"
       example: "5"
     disable_led_flash_on_change:
-      description: "Disable LED flash on setting change: 0=flash enabled, 1=flash disabled"
+      description: "Disable LED flash on setting change: 0=flash enabled, 1=flash disabled (Default: 0)"
       example: "0"
     on_off_switch_mode:
-      description: "On/Off switch mode: 0=dimmer mode, 1=switch mode"
+      description: "On/Off switch mode: 0=dimmer mode, 1=switch mode (Default: 0)"
       example: "0"
     basic_set_custom_brightness:
-      description: "Basic Set custom brightness (0=last level, 1-99%)"
+      description: "Basic Set custom brightness (0=last level, 1-99%) (Default: 0)"
       example: "0"
   mode: single
   sequence:
