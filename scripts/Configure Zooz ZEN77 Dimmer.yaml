@@ -1,0 +1,261 @@
+configure_zooz_zen77:
+  alias: Configure Zooz ZEN77 Dimmer
+  description: "Configures all parameters for Zooz ZEN77 dimmer switch"
+  fields:
+    entity_id:
+      description: "Entity ID of the ZEN77 dimmer"
+      example: "light.bedroom_dimmer"
+    paddle_orientation:
+      description: "Paddle orientation: 0=Up on/Down off, 1=Up off/Down on, 2=Up or down for on/off"
+      example: "0"
+    led_indicator:
+      description: "LED indicator mode: 0=LED on when switch off, 1=LED on when switch on, 2=LED always off, 3=LED always on"
+      example: "0"
+    auto_turn_off_timer:
+      description: "Auto turn-off timer in minutes (0=disabled, 1-65535)"
+      example: "0"
+    auto_turn_on_timer:
+      description: "Auto turn-on timer in minutes (0=disabled, 1-65535)"
+      example: "0"
+    association_reports:
+      description: "Association reports trigger (0-15, see manual for details)"
+      example: "15"
+    power_failure_status:
+      description: "Status after power failure: 0=always off, 1=always on, 2=restore last"
+      example: "2"
+    physical_ramp_rate_on:
+      description: "Physical ramp rate ON in seconds (0=instant, 1-99)"
+      example: "0"
+    minimum_brightness:
+      description: "Minimum brightness level in percent (1-99)"
+      example: "1"
+    maximum_brightness:
+      description: "Maximum brightness level in percent (1-99)"
+      example: "99"
+    double_tap_up:
+      description: "Double tap up behavior: 0=full brightness, 1=custom brightness, 2=max brightness, 3=disabled"
+      example: "0"
+    scene_control:
+      description: "Scene control: 0=disabled, 1=enabled"
+      example: "0"
+    load_control:
+      description: "Load control (smart bulb mode): 0=disable paddle, 1=enable paddle and Z-Wave, 2=disable paddle and Z-Wave"
+      example: "1"
+    dimming_speed:
+      description: "Dimming speed when holding paddle in seconds (1-99)"
+      example: "5"
+    physical_custom_brightness:
+      description: "Physical custom brightness level (0=last level, 1-99%)"
+      example: "0"
+    multilevel_dimming_reports:
+      description: "Multilevel dimming reports behavior (0-2)"
+      example: "2"
+    disabled_load_behavior:
+      description: "Disabled load behavior: 0=reports status/changes LED, 1=doesn't report"
+      example: "0"
+    night_light:
+      description: "Night light brightness level (0=disabled, 1-99%)"
+      example: "20"
+    led_indicator_color:
+      description: "LED indicator color: 0=white, 1=blue, 2=green, 3=red"
+      example: "1"
+    led_indicator_brightness:
+      description: "LED indicator brightness: 0=bright(100%), 1=medium(60%), 2=low(30%)"
+      example: "1"
+    single_tap_up:
+      description: "Single tap up behavior: 0=last brightness, 1=custom brightness, 2=max brightness, 3=full brightness"
+      example: "0"
+    disable_paddle_programming:
+      description: "Disable paddle programming: 0=programming enabled, 1=programming disabled"
+      example: "0"
+    physical_ramp_rate_off:
+      description: "Physical ramp rate OFF in seconds (0=instant, 1-99)"
+      example: "2"
+    zwave_ramp_rate_on:
+      description: "Z-Wave ramp rate ON in seconds (0=instant, 1-99, 255=match physical)"
+      example: "255"
+    zwave_ramp_rate_off:
+      description: "Z-Wave ramp rate OFF in seconds (0=instant, 1-99, 255=match physical)"
+      example: "255"
+    remote_zwave_dimming_duration:
+      description: "Remote Z-Wave dimming duration in seconds (1-99)"
+      example: "5"
+    disable_led_flash_on_change:
+      description: "Disable LED flash on setting change: 0=flash enabled, 1=flash disabled"
+      example: "0"
+    on_off_switch_mode:
+      description: "On/Off switch mode: 0=dimmer mode, 1=switch mode"
+      example: "0"
+    basic_set_custom_brightness:
+      description: "Basic Set custom brightness (0=last level, 1-99%)"
+      example: "0"
+  mode: single
+  sequence:
+    - service: zwave_js.set_config_parameter
+      data_template:
+        # Paddle Orientation
+        entity_id: "{{ entity_id }}"
+        parameter: 1
+        value: "{{ paddle_orientation }}"
+    - service: zwave_js.set_config_parameter
+      data_template:
+        # LED Indicator
+        entity_id: "{{ entity_id }}"
+        parameter: 2
+        value: "{{ led_indicator }}"
+    - service: zwave_js.set_config_parameter
+      data_template:
+        # Auto Turn-Off Timer
+        entity_id: "{{ entity_id }}"
+        parameter: 3
+        value: "{{ auto_turn_off_timer }}"
+    - service: zwave_js.set_config_parameter
+      data_template:
+        # Auto Turn-On Timer
+        entity_id: "{{ entity_id }}"
+        parameter: 5
+        value: "{{ auto_turn_on_timer }}"
+    - service: zwave_js.set_config_parameter
+      data_template:
+        # Association Reports
+        entity_id: "{{ entity_id }}"
+        parameter: 7
+        value: "{{ association_reports }}"
+    - service: zwave_js.set_config_parameter
+      data_template:
+        # On Off Status After Power Failure
+        entity_id: "{{ entity_id }}"
+        parameter: 8
+        value: "{{ power_failure_status }}"
+    - service: zwave_js.set_config_parameter
+      data_template:
+        # Physical Ramp Rate ON
+        entity_id: "{{ entity_id }}"
+        parameter: 9
+        value: "{{ physical_ramp_rate_on }}"
+    - service: zwave_js.set_config_parameter
+      data_template:
+        # Minimum Brightness
+        entity_id: "{{ entity_id }}"
+        parameter: 10
+        value: "{{ minimum_brightness }}"
+    - service: zwave_js.set_config_parameter
+      data_template:
+        # Maximum Brightness
+        entity_id: "{{ entity_id }}"
+        parameter: 11
+        value: "{{ maximum_brightness }}"
+    - service: zwave_js.set_config_parameter
+      data_template:
+        # Double Tap Up
+        entity_id: "{{ entity_id }}"
+        parameter: 12
+        value: "{{ double_tap_up }}"
+    - service: zwave_js.set_config_parameter
+      data_template:
+        # Scene Control
+        entity_id: "{{ entity_id }}"
+        parameter: 13
+        value: "{{ scene_control }}"
+    - service: zwave_js.set_config_parameter
+      data_template:
+        # Load Control (Smart Bulb Mode)
+        entity_id: "{{ entity_id }}"
+        parameter: 15
+        value: "{{ load_control }}"
+    - service: zwave_js.set_config_parameter
+      data_template:
+        # Dimming Speed
+        entity_id: "{{ entity_id }}"
+        parameter: 16
+        value: "{{ dimming_speed }}"
+    - service: zwave_js.set_config_parameter
+      data_template:
+        # Physical Custom Brightness On
+        entity_id: "{{ entity_id }}"
+        parameter: 18
+        value: "{{ physical_custom_brightness }}"
+    - service: zwave_js.set_config_parameter
+      data_template:
+        # Multilevel Dimming Reports
+        entity_id: "{{ entity_id }}"
+        parameter: 20
+        value: "{{ multilevel_dimming_reports }}"
+    - service: zwave_js.set_config_parameter
+      data_template:
+        # Disabled Load Behavior
+        entity_id: "{{ entity_id }}"
+        parameter: 21
+        value: "{{ disabled_load_behavior }}"
+    - service: zwave_js.set_config_parameter
+      data_template:
+        # Night Light
+        entity_id: "{{ entity_id }}"
+        parameter: 22
+        value: "{{ night_light }}"
+    - service: zwave_js.set_config_parameter
+      data_template:
+        # LED Indicator Color
+        entity_id: "{{ entity_id }}"
+        parameter: 23
+        value: "{{ led_indicator_color }}"
+    - service: zwave_js.set_config_parameter
+      data_template:
+        # LED Indicator Brightness
+        entity_id: "{{ entity_id }}"
+        parameter: 24
+        value: "{{ led_indicator_brightness }}"
+    - service: zwave_js.set_config_parameter
+      data_template:
+        # Single Tap Up
+        entity_id: "{{ entity_id }}"
+        parameter: 25
+        value: "{{ single_tap_up }}"
+    - service: zwave_js.set_config_parameter
+      data_template:
+        # Disable Paddle Programming
+        entity_id: "{{ entity_id }}"
+        parameter: 26
+        value: "{{ disable_paddle_programming }}"
+    - service: zwave_js.set_config_parameter
+      data_template:
+        # Physical Ramp Rate Off
+        entity_id: "{{ entity_id }}"
+        parameter: 27
+        value: "{{ physical_ramp_rate_off }}"
+    - service: zwave_js.set_config_parameter
+      data_template:
+        # Z-Wave Ramp Rate ON
+        entity_id: "{{ entity_id }}"
+        parameter: 28
+        value: "{{ zwave_ramp_rate_on }}"
+    - service: zwave_js.set_config_parameter
+      data_template:
+        # Z-Wave Ramp Rate OFF
+        entity_id: "{{ entity_id }}"
+        parameter: 29
+        value: "{{ zwave_ramp_rate_off }}"
+    - service: zwave_js.set_config_parameter
+      data_template:
+        # Remote Z-Wave Dimming Duration
+        entity_id: "{{ entity_id }}"
+        parameter: 30
+        value: "{{ remote_zwave_dimming_duration }}"
+    - service: zwave_js.set_config_parameter
+      data_template:
+        # Disable LED Indicator Flash On Setting Change
+        entity_id: "{{ entity_id }}"
+        parameter: 32
+        value: "{{ disable_led_flash_on_change }}"
+    - service: zwave_js.set_config_parameter
+      data_template:
+        # On Off Switch Mode
+        entity_id: "{{ entity_id }}"
+        parameter: 33
+        value: "{{ on_off_switch_mode }}"
+    - service: zwave_js.set_config_parameter
+      data_template:
+        # Basic Set Custom Brightness On
+        entity_id: "{{ entity_id }}"
+        parameter: 34
+        value: "{{ basic_set_custom_brightness }}"
