@@ -1,11 +1,11 @@
 blueprint:
-  name: Multi-Group Status Notification
-  description: Monitor multiple groups for specific statuses and send a consolidated notification
+  name: Flexible Multi-Entity Status Notification
+  description: Monitor any entities for specific statuses and send consolidated notifications
   domain: automation
   input:
     notification_service:
       name: Notification Service
-      description: The notification service to use (e.g., notify.mobile_app_your_phone)
+      description: The notification service to use
       selector:
         text:
       default: "notify.notify"
@@ -15,261 +15,178 @@ blueprint:
       description: Title for the notification
       selector:
         text:
-      default: "Device Status Alert"
+      default: "Entity Status Alert"
     
-    enable_rate_limiting:
-      name: Enable Rate Limiting
-      description: Prevent notification spam by limiting to once every 30 minutes
+    # Entity 1 Configuration
+    entity1_enable:
+      name: Enable Entity 1
+      description: Monitor the first entity/group
       selector:
         boolean:
       default: true
     
-    # Group 1 Configuration
-    group1_enable:
-      name: Enable Group 1
-      description: Monitor the first group
+    entity1_target:
+      name: Entity 1
+      description: Select any entity or group to monitor
       selector:
-        boolean:
-      default: true
-    
-    group1_entity:
-      name: Group 1 Entity
-      description: Select the first group to monitor
-      selector:
-        entity:
-          domain: group
+        entity: {}
       default: ""
     
-    group1_status:
-      name: Group 1 Status
-      description: Status to check for in Group 1
-      selector:
-        select:
-          options:
-            - "on"
-            - "off" 
-            - "unavailable"
-            - "unknown"
-            - "open"
-            - "closed"
-            - "home"
-            - "away"
-          custom_value: true
-      default: "unavailable"
-    
-    group1_label:
-      name: Group 1 Label
-      description: Label to show in notification for Group 1 (e.g., "LIGHTS ON", "SENSORS OFFLINE")
+    entity1_status:
+      name: Entity 1 Status
+      description: Status to check for
       selector:
         text:
-      default: "GROUP 1 ALERTS"
+      default: "unavailable"
     
-    group1_icon:
-      name: Group 1 Icon
-      description: Emoji or icon for Group 1 in notification
+    entity1_label:
+      name: Entity 1 Label
+      description: Label for notification
+      selector:
+        text:
+      default: "ENTITY 1 ALERTS"
+    
+    entity1_icon:
+      name: Entity 1 Icon
+      description: Icon/emoji for notification
       selector:
         text:
       default: "🔔"
     
-    # Group 2 Configuration
-    group2_enable:
-      name: Enable Group 2
-      description: Monitor the second group
+    # Entity 2 Configuration
+    entity2_enable:
+      name: Enable Entity 2
+      description: Monitor the second entity/group
       selector:
         boolean:
       default: false
     
-    group2_entity:
-      name: Group 2 Entity
-      description: Select the second group to monitor
+    entity2_target:
+      name: Entity 2
+      description: Select any entity or group to monitor
       selector:
-        entity:
-          domain: group
+        entity: {}
       default: ""
     
-    group2_status:
-      name: Group 2 Status
-      description: Status to check for in Group 2
-      selector:
-        select:
-          options:
-            - "on"
-            - "off"
-            - "unavailable" 
-            - "unknown"
-            - "open"
-            - "closed"
-            - "home"
-            - "away"
-          custom_value: true
-      default: "on"
-    
-    group2_label:
-      name: Group 2 Label
-      description: Label to show in notification for Group 2
+    entity2_status:
+      name: Entity 2 Status
+      description: Status to check for
       selector:
         text:
-      default: "GROUP 2 ALERTS"
+      default: "on"
     
-    group2_icon:
-      name: Group 2 Icon
-      description: Emoji or icon for Group 2 in notification
+    entity2_label:
+      name: Entity 2 Label
+      description: Label for notification
+      selector:
+        text:
+      default: "ENTITY 2 ALERTS"
+    
+    entity2_icon:
+      name: Entity 2 Icon
+      description: Icon/emoji for notification
       selector:
         text:
       default: "⚡"
     
-    # Group 3 Configuration
-    group3_enable:
-      name: Enable Group 3
-      description: Monitor the third group
+    # Entity 3 Configuration
+    entity3_enable:
+      name: Enable Entity 3
+      description: Monitor the third entity/group
       selector:
         boolean:
       default: false
     
-    group3_entity:
-      name: Group 3 Entity
-      description: Select the third group to monitor
+    entity3_target:
+      name: Entity 3
+      description: Select any entity or group to monitor
       selector:
-        entity:
-          domain: group
+        entity: {}
       default: ""
     
-    group3_status:
-      name: Group 3 Status
-      description: Status to check for in Group 3
-      selector:
-        select:
-          options:
-            - "on"
-            - "off"
-            - "unavailable"
-            - "unknown" 
-            - "open"
-            - "closed"
-            - "home"
-            - "away"
-          custom_value: true
-      default: "unknown"
-    
-    group3_label:
-      name: Group 3 Label
-      description: Label to show in notification for Group 3
+    entity3_status:
+      name: Entity 3 Status
+      description: Status to check for
       selector:
         text:
-      default: "GROUP 3 ALERTS"
+      default: "unknown"
     
-    group3_icon:
-      name: Group 3 Icon
-      description: Emoji or icon for Group 3 in notification
+    entity3_label:
+      name: Entity 3 Label
+      description: Label for notification
+      selector:
+        text:
+      default: "ENTITY 3 ALERTS"
+    
+    entity3_icon:
+      name: Entity 3 Icon
+      description: Icon/emoji for notification
       selector:
         text:
       default: "📡"
-    
-    # Group 4 Configuration
-    group4_enable:
-      name: Enable Group 4
-      description: Monitor the fourth group
-      selector:
-        boolean:
-      default: false
-    
-    group4_entity:
-      name: Group 4 Entity
-      description: Select the fourth group to monitor
-      selector:
-        entity:
-          domain: group
-      default: ""
-    
-    group4_status:
-      name: Group 4 Status
-      description: Status to check for in Group 4
-      selector:
-        select:
-          options:
-            - "on"
-            - "off"
-            - "unavailable"
-            - "unknown"
-            - "open" 
-            - "closed"
-            - "home"
-            - "away"
-          custom_value: true
-      default: "unavailable"
-    
-    group4_label:
-      name: Group 4 Label
-      description: Label to show in notification for Group 4
-      selector:
-        text:
-      default: "GROUP 4 ALERTS"
-    
-    group4_icon:
-      name: Group 4 Icon
-      description: Emoji or icon for Group 4 in notification
-      selector:
-        text:
-      default: "📹"
 
 trigger:
   - platform: state
-    entity_id: !input group1_entity
-    enabled: !input group1_enable
+    entity_id: !input entity1_target
+    enabled: !input entity1_enable
   - platform: state
-    entity_id: !input group2_entity
-    enabled: !input group2_enable
+    entity_id: !input entity2_target
+    enabled: !input entity2_enable
   - platform: state
-    entity_id: !input group3_entity
-    enabled: !input group3_enable
-  - platform: state
-    entity_id: !input group4_entity
-    enabled: !input group4_enable
+    entity_id: !input entity3_target
+    enabled: !input entity3_enable
 
 condition:
-  - condition: and
-    conditions:
-      # Check if any enabled groups have matching entities
-      - condition: template
-        value_template: >
-          {% set matching = namespace(found=false) %}
-          
-          {% if group1_enable and group1_entity != "" %}
-            {% if expand(group1_entity) | selectattr('state', 'eq', group1_status) | list | length > 0 %}
-              {% set matching.found = true %}
-            {% endif %}
-          {% endif %}
-          
-          {% if group2_enable and group2_entity != "" %}
-            {% if expand(group2_entity) | selectattr('state', 'eq', group2_status) | list | length > 0 %}
-              {% set matching.found = true %}
-            {% endif %}
-          {% endif %}
-          
-          {% if group3_enable and group3_entity != "" %}
-            {% if expand(group3_entity) | selectattr('state', 'eq', group3_status) | list | length > 0 %}
-              {% set matching.found = true %}
-            {% endif %}
-          {% endif %}
-          
-          {% if group4_enable and group4_entity != "" %}
-            {% if expand(group4_entity) | selectattr('state', 'eq', group4_status) | list | length > 0 %}
-              {% set matching.found = true %}
-            {% endif %}
-          {% endif %}
-          
-          {{ matching.found }}
-        alias: "Check if any groups have matching entities"
+  - condition: template
+    value_template: >
+      {% set matching = namespace(found=false) %}
+      {% set entity1_enable = entity1_enable %}
+      {% set entity1_target = entity1_target %}
+      {% set entity1_status = entity1_status %}
+      {% set entity2_enable = entity2_enable %}
+      {% set entity2_target = entity2_target %}
+      {% set entity2_status = entity2_status %}
+      {% set entity3_enable = entity3_enable %}
+      {% set entity3_target = entity3_target %}
+      {% set entity3_status = entity3_status %}
       
-      # Rate limiting condition (if enabled)
-      - condition: template
-        value_template: >
-          {% if enable_rate_limiting %}
-            {{ (now() - this.attributes.last_triggered | default(now() - timedelta(hours=1))).total_seconds() > 1800 }}
-          {% else %}
-            true
+      {% if entity1_enable and entity1_target != "" %}
+        {% if entity1_target.startswith('group.') %}
+          {% if expand(entity1_target) | selectattr('state', 'eq', entity1_status) | list | length > 0 %}
+            {% set matching.found = true %}
           {% endif %}
-        alias: "Rate limiting check"
+        {% else %}
+          {% if states(entity1_target) == entity1_status %}
+            {% set matching.found = true %}
+          {% endif %}
+        {% endif %}
+      {% endif %}
+      
+      {% if entity2_enable and entity2_target != "" %}
+        {% if entity2_target.startswith('group.') %}
+          {% if expand(entity2_target) | selectattr('state', 'eq', entity2_status) | list | length > 0 %}
+            {% set matching.found = true %}
+          {% endif %}
+        {% else %}
+          {% if states(entity2_target) == entity2_status %}
+            {% set matching.found = true %}
+          {% endif %}
+        {% endif %}
+      {% endif %}
+      
+      {% if entity3_enable and entity3_target != "" %}
+        {% if entity3_target.startswith('group.') %}
+          {% if expand(entity3_target) | selectattr('state', 'eq', entity3_status) | list | length > 0 %}
+            {% set matching.found = true %}
+          {% endif %}
+        {% else %}
+          {% if states(entity3_target) == entity3_status %}
+            {% set matching.found = true %}
+          {% endif %}
+        {% endif %}
+      {% endif %}
+      
+      {{ matching.found }}
 
 action:
   - service: !input notification_service
@@ -277,97 +194,93 @@ action:
       title: !input notification_title
       message: >
         {% set alerts = [] %}
-        {% set group1_enable = group1_enable %}
-        {% set group1_entity = group1_entity %}
-        {% set group1_status = group1_status %}
-        {% set group1_label = group1_label %}
-        {% set group1_icon = group1_icon %}
-        {% set group2_enable = group2_enable %}
-        {% set group2_entity = group2_entity %}
-        {% set group2_status = group2_status %}
-        {% set group2_label = group2_label %}
-        {% set group2_icon = group2_icon %}
-        {% set group3_enable = group3_enable %}
-        {% set group3_entity = group3_entity %}
-        {% set group3_status = group3_status %}
-        {% set group3_label = group3_label %}
-        {% set group3_icon = group3_icon %}
-        {% set group4_enable = group4_enable %}
-        {% set group4_entity = group4_entity %}
-        {% set group4_status = group4_status %}
-        {% set group4_label = group4_label %}
-        {% set group4_icon = group4_icon %}
+        {% set entity1_enable = entity1_enable %}
+        {% set entity1_target = entity1_target %}
+        {% set entity1_status = entity1_status %}
+        {% set entity1_label = entity1_label %}
+        {% set entity1_icon = entity1_icon %}
+        {% set entity2_enable = entity2_enable %}
+        {% set entity2_target = entity2_target %}
+        {% set entity2_status = entity2_status %}
+        {% set entity2_label = entity2_label %}
+        {% set entity2_icon = entity2_icon %}
+        {% set entity3_enable = entity3_enable %}
+        {% set entity3_target = entity3_target %}
+        {% set entity3_status = entity3_status %}
+        {% set entity3_label = entity3_label %}
+        {% set entity3_icon = entity3_icon %}
         
-        {# Check Group 1 #}
-        {% if group1_enable and group1_entity != "" %}
-          {% set matching_entities = expand(group1_entity) | selectattr('state', 'eq', group1_status) | list %}
-          {% if matching_entities | length > 0 %}
-            {% set alerts = alerts + ['\n' + group1_icon + ' ' + group1_label + ':'] %}
-            {% for entity in matching_entities %}
-              {% set alerts = alerts + ['• ' + (entity.attributes.friendly_name or entity.entity_id) + ' (' + entity.state + ')'] %}
-            {% endfor %}
+        {# Check Entity 1 #}
+        {% if entity1_enable and entity1_target != "" %}
+          {% if entity1_target.startswith('group.') %}
+            {% set matching_entities = expand(entity1_target) | selectattr('state', 'eq', entity1_status) | list %}
+            {% if matching_entities | length > 0 %}
+              {% set alerts = alerts + ['\n' + entity1_icon + ' ' + entity1_label + ':'] %}
+              {% for entity in matching_entities %}
+                {% set alerts = alerts + ['• ' + (entity.attributes.friendly_name or entity.entity_id) + ' (' + entity.state + ')'] %}
+              {% endfor %}
+            {% endif %}
+          {% else %}
+            {% if states(entity1_target) == entity1_status %}
+              {% set alerts = alerts + ['\n' + entity1_icon + ' ' + entity1_label + ':'] %}
+              {% set alerts = alerts + ['• ' + (state_attr(entity1_target, 'friendly_name') or entity1_target) + ' (' + states(entity1_target) + ')'] %}
+            {% endif %}
           {% endif %}
         {% endif %}
         
-        {# Check Group 2 #}
-        {% if group2_enable and group2_entity != "" %}
-          {% set matching_entities = expand(group2_entity) | selectattr('state', 'eq', group2_status) | list %}
-          {% if matching_entities | length > 0 %}
-            {% set alerts = alerts + ['\n' + group2_icon + ' ' + group2_label + ':'] %}
-            {% for entity in matching_entities %}
-              {% set alerts = alerts + ['• ' + (entity.attributes.friendly_name or entity.entity_id) + ' (' + entity.state + ')'] %}
-            {% endfor %}
+        {# Check Entity 2 #}
+        {% if entity2_enable and entity2_target != "" %}
+          {% if entity2_target.startswith('group.') %}
+            {% set matching_entities = expand(entity2_target) | selectattr('state', 'eq', entity2_status) | list %}
+            {% if matching_entities | length > 0 %}
+              {% set alerts = alerts + ['\n' + entity2_icon + ' ' + entity2_label + ':'] %}
+              {% for entity in matching_entities %}
+                {% set alerts = alerts + ['• ' + (entity.attributes.friendly_name or entity.entity_id) + ' (' + entity.state + ')'] %}
+              {% endfor %}
+            {% endif %}
+          {% else %}
+            {% if states(entity2_target) == entity2_status %}
+              {% set alerts = alerts + ['\n' + entity2_icon + ' ' + entity2_label + ':'] %}
+              {% set alerts = alerts + ['• ' + (state_attr(entity2_target, 'friendly_name') or entity2_target) + ' (' + states(entity2_target) + ')'] %}
+            {% endif %}
           {% endif %}
         {% endif %}
         
-        {# Check Group 3 #}
-        {% if group3_enable and group3_entity != "" %}
-          {% set matching_entities = expand(group3_entity) | selectattr('state', 'eq', group3_status) | list %}
-          {% if matching_entities | length > 0 %}
-            {% set alerts = alerts + ['\n' + group3_icon + ' ' + group3_label + ':'] %}
-            {% for entity in matching_entities %}
-              {% set alerts = alerts + ['• ' + (entity.attributes.friendly_name or entity.entity_id) + ' (' + entity.state + ')'] %}
-            {% endfor %}
-          {% endif %}
-        {% endif %}
-        
-        {# Check Group 4 #}
-        {% if group4_enable and group4_entity != "" %}
-          {% set matching_entities = expand(group4_entity) | selectattr('state', 'eq', group4_status) | list %}
-          {% if matching_entities | length > 0 %}
-            {% set alerts = alerts + ['\n' + group4_icon + ' ' + group4_label + ':'] %}
-            {% for entity in matching_entities %}
-              {% set alerts = alerts + ['• ' + (entity.attributes.friendly_name or entity.entity_id) + ' (' + entity.state + ')'] %}
-            {% endfor %}
+        {# Check Entity 3 #}
+        {% if entity3_enable and entity3_target != "" %}
+          {% if entity3_target.startswith('group.') %}
+            {% set matching_entities = expand(entity3_target) | selectattr('state', 'eq', entity3_status) | list %}
+            {% if matching_entities | length > 0 %}
+              {% set alerts = alerts + ['\n' + entity3_icon + ' ' + entity3_label + ':'] %}
+              {% for entity in matching_entities %}
+                {% set alerts = alerts + ['• ' + (entity.attributes.friendly_name or entity.entity_id) + ' (' + entity.state + ')'] %}
+              {% endfor %}
+            {% endif %}
+          {% else %}
+            {% if states(entity3_target) == entity3_status %}
+              {% set alerts = alerts + ['\n' + entity3_icon + ' ' + entity3_label + ':'] %}
+              {% set alerts = alerts + ['• ' + (state_attr(entity3_target, 'friendly_name') or entity3_target) + ' (' + states(entity3_target) + ')'] %}
+            {% endif %}
           {% endif %}
         {% endif %}
         
         {{ alerts | join('\n') }}
-      data:
-        priority: high
-        icon: mdi:alert-circle
 
 mode: single
 
 variables:
-  group1_enable: !input group1_enable
-  group1_entity: !input group1_entity
-  group1_status: !input group1_status
-  group1_label: !input group1_label
-  group1_icon: !input group1_icon
-  group2_enable: !input group2_enable
-  group2_entity: !input group2_entity
-  group2_status: !input group2_status
-  group2_label: !input group2_label
-  group2_icon: !input group2_icon
-  group3_enable: !input group3_enable
-  group3_entity: !input group3_entity
-  group3_status: !input group3_status
-  group3_label: !input group3_label
-  group3_icon: !input group3_icon
-  group4_enable: !input group4_enable
-  group4_entity: !input group4_entity
-  group4_status: !input group4_status
-  group4_label: !input group4_label
-  group4_icon: !input group4_icon
-  enable_rate_limiting: !input enable_rate_limiting
+  entity1_enable: !input entity1_enable
+  entity1_target: !input entity1_target
+  entity1_status: !input entity1_status
+  entity1_label: !input entity1_label
+  entity1_icon: !input entity1_icon
+  entity2_enable: !input entity2_enable
+  entity2_target: !input entity2_target
+  entity2_status: !input entity2_status
+  entity2_label: !input entity2_label
+  entity2_icon: !input entity2_icon
+  entity3_enable: !input entity3_enable
+  entity3_target: !input entity3_target
+  entity3_status: !input entity3_status
+  entity3_label: !input entity3_label
+  entity3_icon: !input entity3_icon
