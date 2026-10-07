@@ -1,7 +1,7 @@
 # Unsplashed
 
 [![HACS Custom](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://hacs.xyz/docs/faq/custom_repositories)
-[![Validate](https://github.com/YOUR_GITHUB_USERNAME/unsplashed/actions/workflows/validate.yml/badge.svg)](https://github.com/YOUR_GITHUB_USERNAME/unsplashed/actions/workflows/validate.yml)
+[![Validate](https://github.com/geoffreykobrien/unsplashed/actions/workflows/validate.yml/badge.svg)](https://github.com/geoffreykobrien/unsplashed/actions/workflows/validate.yml)
 ![Home Assistant 2025.1+](https://img.shields.io/badge/Home%20Assistant-2025.1%2B-blue)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
@@ -31,7 +31,7 @@ I built it to feed a portrait kitchen wall display. Point a slideshow at the fol
 
 1. In Home Assistant, open **HACS**.
 2. Open the **⋮** menu (top right) and choose **Custom repositories**.
-3. Enter `https://github.com/YOUR_GITHUB_USERNAME/unsplashed`, set the type to **Integration**, and click **Add**.
+3. Enter `https://github.com/geoffreykobrien/unsplashed`, set the type to **Integration**, and click **Add**.
 4. Search HACS for **Unsplashed**, open it, and click **Download**.
 5. Restart Home Assistant.
 
